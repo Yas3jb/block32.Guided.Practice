@@ -5,9 +5,13 @@ const client = new pg.Client(
 );
 const app = express();
 
+// parse the body into JS Objects
 app.use(express.json());
+
+// Log the requests as they come in
 app.use(require("morgan")("dev"));
 
+// Create Notes - C
 app.post("/api/notes", async (req, res, next) => {
   try {
     const SQL = `
@@ -22,6 +26,7 @@ app.post("/api/notes", async (req, res, next) => {
   }
 });
 
+// Read Notes - R
 app.get("/api/notes", async (req, res, next) => {
   try {
     const SQL = `
@@ -32,6 +37,7 @@ app.get("/api/notes", async (req, res, next) => {
   } catch (error) {}
 });
 
+// Update Notes - U
 app.put("/api/notes/:id", async (req, res, next) => {
   try {
     const SQL = `
@@ -50,6 +56,7 @@ app.put("/api/notes/:id", async (req, res, next) => {
   }
 });
 
+// Delete Notes - D
 app.delete("/api/notes/:id", async (req, res, next) => {
   try {
     const SQL = `
@@ -63,6 +70,7 @@ app.delete("/api/notes/:id", async (req, res, next) => {
   }
 });
 
+// create and run the express app
 const init = async () => {
   await client.connect();
   console.log("conneted to database");
